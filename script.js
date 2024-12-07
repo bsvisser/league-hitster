@@ -144,8 +144,38 @@ function setupDragEvents(currentChampion) {
     const draggable = document.getElementById("draggable-champion");
 
     draggable.addEventListener("dragstart", (event) => {
+        // Prevent the default drag behavior to keep the element visible
+        event.preventDefault();
+        
+        // Create a clone of the card and make it follow the mouse
+        const dragImage = draggable.cloneNode(true);  // Clone the element
+        dragImage.style.position = 'absolute';  // Make it follow the cursor
+        dragImage.style.pointerEvents = 'none'; // Prevent interaction with the cloned image
+        dragImage.style.zIndex = 9999;  // Make sure it's on top of everything
+        dragImage.style.left = `${event.pageX - dragImage.offsetWidth / 2}px`;  // Position it near the cursor
+        dragImage.style.top = `${event.pageY - dragImage.offsetHeight / 2}px`;  // Position it near the cursor
+        
+        document.body.appendChild(dragImage);  // Append the clone to the body
+
+        // Update the image position to follow the cursor on mousemove
+        const moveHandler = (moveEvent) => {
+            dragImage.style.left = `${moveEvent.pageX - dragImage.offsetWidth / 2}px`;
+            dragImage.style.top = `${moveEvent.pageY - dragImage.offsetHeight / 2}px`;
+        };
+
+        // Stop the move once the drag ends
+        const stopHandler = () => {
+            document.removeEventListener("mousemove", moveHandler);
+            document.removeEventListener("mouseup", stopHandler);
+            document.body.removeChild(dragImage);  // Remove the cloned element
+        };
+
+        // Add listeners to move the image and stop dragging
+        document.addEventListener("mousemove", moveHandler);
+        document.addEventListener("mouseup", stopHandler);
+        
+        // Continue the drag with the original element (so it doesn't disappear)
         event.dataTransfer.setData("text/plain", JSON.stringify(currentChampion));
-        draggable.classList.remove("active");
     });
 }
 
