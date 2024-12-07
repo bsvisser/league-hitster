@@ -219,20 +219,3 @@ body {
     box-shadow: 0 0 15px rgba(244, 67, 54, 0.5);
     transition: background-color 0.3s, box-shadow 0.3s;
 }
-
-@keyframes resetColor {
-    0% {
-        background-color: inherit;
-    }
-    100% {
-        background-color: #2a2a40; /* Original card background color */
-    }
-}
-
-.card.reset {
-    animation: resetColor 0.5s forwards;
-}
-
-#draggable-champion.reset {
-    animation: resetColor 0.5s forwards;
-}
