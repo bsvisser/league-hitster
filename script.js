@@ -9,13 +9,13 @@ function initializeGame() {
     const gameContainer = document.getElementById("game-container");
     const scoreDisplay = document.createElement('div');
     scoreDisplay.id = 'score';
-    scoreDisplay.textContent = `Score: ${score}`;
+    scoreDisplay.textContent = Score: ${score};
     gameContainer.insertBefore(scoreDisplay, gameContainer.firstChild);
 
     // Add lives display
     const livesDisplay = document.createElement('div');
     livesDisplay.id = 'lives';
-    livesDisplay.textContent = `Lives: ${lives}\n`;
+    livesDisplay.textContent = Lives: ${lives}\n;
     gameContainer.insertBefore(livesDisplay, scoreDisplay.nextSibling);
 }
 
@@ -46,8 +46,8 @@ function startGame() {
     timeline = [];
     lives = 3;
     score = 0;
-    document.getElementById('lives').textContent = `Lives: ${lives}`;
-    document.getElementById('score').textContent = `Score: ${score}`;
+    document.getElementById('lives').textContent = Lives: ${lives};
+    document.getElementById('score').textContent = Score: ${score};
 
     // Add first champion to timeline
     const firstChampion = champions.pop();
@@ -84,10 +84,10 @@ function nextRound() {
         const activeCard = document.getElementById("draggable-champion");
 
         // Use the preloaded image instead of loading it again
-        activeCard.innerHTML = `
+        activeCard.innerHTML = 
             <img src="${preloadedImg.src}" alt="${currentChampion.name}" class="card-image">
             <p>${currentChampion.name}</p>
-        `;
+        ;
 
         // Set data attributes
         activeCard.dataset.releaseDate = currentChampion.releaseDate;
@@ -119,13 +119,13 @@ function renderTimeline() {
     timelineDiv.innerHTML = timeline
         .map((champ, index) => {
             const isPlaced = index < timeline.length;
-            return `
+            return 
                 <div class="card droppable ${isPlaced ? 'placed' : ''}" data-release-date="${champ.releaseDate}" data-index="${index}">
                     <img src="${champ.image}" alt="${champ.name}" class="card-image">
                     <p>${champ.name}</p>
                     <p class="release-date">${new Date(champ.releaseDate).toLocaleDateString()}</p>
                 </div>
-            `;
+            ;
         })
         .join('');
     
@@ -144,38 +144,8 @@ function setupDragEvents(currentChampion) {
     const draggable = document.getElementById("draggable-champion");
 
     draggable.addEventListener("dragstart", (event) => {
-        // Prevent the default drag behavior to keep the element visible
-        event.preventDefault();
-
-        // Create a clone of the card and make it follow the mouse
-        const dragImage = draggable.cloneNode(true);  // Clone the element
-        dragImage.style.position = 'absolute';  // Make it follow the cursor
-        dragImage.style.pointerEvents = 'none'; // Prevent interaction with the cloned image
-        dragImage.style.zIndex = 9999;  // Make sure it's on top of everything
-        dragImage.style.left = `${event.pageX - dragImage.offsetWidth / 2}px`;  // Position it near the cursor
-        dragImage.style.top = `${event.pageY - dragImage.offsetHeight / 2}px`;  // Position it near the cursor
-
-        document.body.appendChild(dragImage);  // Append the clone to the body
-
-        // Update the image position to follow the cursor on mousemove
-        const moveHandler = (moveEvent) => {
-            dragImage.style.left = `${moveEvent.pageX - dragImage.offsetWidth / 2}px`;
-            dragImage.style.top = `${moveEvent.pageY - dragImage.offsetHeight / 2}px`;
-        };
-
-        // Stop the move once the drag ends
-        const stopHandler = () => {
-            document.removeEventListener("mousemove", moveHandler);
-            document.removeEventListener("mouseup", stopHandler);
-            document.body.removeChild(dragImage);  // Remove the cloned element
-        };
-
-        // Add listeners to move the image and stop dragging
-        document.addEventListener("mousemove", moveHandler);
-        document.addEventListener("mouseup", stopHandler);
-
-        // Store the champion data to be used during drop
         event.dataTransfer.setData("text/plain", JSON.stringify(currentChampion));
+        draggable.classList.remove("active");
     });
 }
 
@@ -196,24 +166,21 @@ function setupDropZones() {
             event.preventDefault();
             zone.classList.remove("drag-over");
 
-            // Get the data of the dragged item (the champion object)
             const draggedData = JSON.parse(event.dataTransfer.getData("text/plain"));
             const index = parseInt(zone.dataset.index, 10);
 
-            // Check if the drop is correct
             const correctPlacement = checkPlacement(draggedData, index);
 
             if (correctPlacement) {
                 score += 10; // Increment score for correct placement
-                document.getElementById('score').textContent = `Score: ${score}`;
-
-                // Add the champion to the timeline at the correct index
+                document.getElementById('score').textContent = Score: ${score};
+                
                 addChampionToTimeline(draggedData, index);
                 renderTimeline();
                 nextRound();
             } else {
                 lives--;
-                document.getElementById("lives").textContent = `Lives: ${lives}`;
+                document.getElementById("lives").textContent = Lives: ${lives};
 
                 if (lives <= 0) {
                     gameOver();
@@ -224,7 +191,6 @@ function setupDropZones() {
         });
     });
 }
-
 
 function checkPlacement(draggedChampion, index) {
     const draggedDate = new Date(draggedChampion.releaseDate);
@@ -249,13 +215,13 @@ function addChampionToTimeline(champion, index) {
 
 function gameOver() {
     const finalScore = score;
-    alert(`Game Over! Your final score is ${finalScore}`);
+    alert(Game Over! Your final score is ${finalScore});
     
     // Optional: Implement high score tracking
     const highScore = localStorage.getItem('leagueHitsterHighScore') || 0;
     if (finalScore > highScore) {
         localStorage.setItem('leagueHitsterHighScore', finalScore);
-        alert(`New High Score: ${finalScore}!`);
+        alert(New High Score: ${finalScore}!);
     }
     
     // Restart the game
@@ -265,13 +231,13 @@ function gameOver() {
 
 function winGame() {
     const finalScore = score;
-    alert(`Congratulations! You placed all champions correctly. Your final score is ${finalScore}`);
+    alert(Congratulations! You placed all champions correctly. Your final score is ${finalScore});
     
     // Optional: Implement high score tracking
     const highScore = localStorage.getItem('leagueHitsterHighScore') || 0;
     if (finalScore > highScore) {
         localStorage.setItem('leagueHitsterHighScore', finalScore);
-        alert(`New High Score: ${finalScore}!`);
+        alert(New High Score: ${finalScore}!);
     }
     
     // Restart the game
