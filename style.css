@@ -102,8 +102,8 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(155, 77, 255, 0.5);
     animation: pulse 1.5s infinite;
-    transition: transform 0.3s;
-    margin-top: 10px; /* Optional spacing between the timeline */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Added transition */
+    margin-top: 10px;
     text-align: center;
 }
 
