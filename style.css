@@ -220,13 +220,12 @@ body {
     transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-/* Reset the color after a certain period */
 @keyframes resetColor {
     0% {
         background-color: inherit;
     }
     100% {
-        background-color: #2a2a40;
+        background-color: #2a2a40; /* Original card background color */
     }
 }
 
@@ -234,16 +233,6 @@ body {
     animation: resetColor 0.5s forwards;
 }
 
-/* Transition back to the original color */
-@keyframes resetColor {
-    0% {
-        background-color: inherit;
-    }
-    100% {
-        background-color: #2a2a40;
-    }
-}
-
-.card.reset {
+#draggable-champion.reset {
     animation: resetColor 0.5s forwards;
 }
