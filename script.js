@@ -123,7 +123,7 @@ function renderTimeline() {
                 <div class="card droppable ${isPlaced ? 'placed' : ''}" data-release-date="${champ.releaseDate}" data-index="${index}">
                     <img src="${champ.image}" alt="${champ.name}" class="card-image">
                     <p>${champ.name}</p>
-                    <p class="release-date">${new Date(champ.releaseDate).toLocaleDateString()}</p>
+                    <p class="release-date">${formatDate(champ.releaseDate)}</p>
                 </div>
             `;
         })
@@ -147,6 +147,22 @@ function setupDragEvents(currentChampion) {
         event.dataTransfer.setData("text/plain", JSON.stringify(currentChampion));
         draggable.classList.remove("active");
     });
+}
+
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.toLocaleString('default', { month: 'long' });
+    const year = date.getFullYear();
+
+    // Function to get the ordinal suffix (st, nd, rd, th)
+    const getOrdinalSuffix = (n) => {
+        const suffixes = ["th", "st", "nd", "rd"];
+        const remainder = n % 100;
+        return suffixes[(remainder - 20) % 10] || suffixes[remainder] || suffixes[0];
+    };
+
+    return `${day}${getOrdinalSuffix(day)} ${month} ${year}`;
 }
 
 function setupDropZones() {
