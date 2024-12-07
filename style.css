@@ -33,6 +33,23 @@ body {
     transition: transform 0.3s;
     position: relative;
 }
+/* Styles for correct placement */
+.card.correct {
+    background-color: #4caf50; /* Green color */
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+}
+
+/* Styles for incorrect placement */
+.card.incorrect {
+    background-color: #f44336; /* Red color */
+    box-shadow: 0 0 15px rgba(244, 67, 54, 0.5);
+}
+
+/* Transition back to normal color */
+.card.correct,
+.card.incorrect {
+    transition: background-color 0.5s, box-shadow 0.5s;
+}
 
 .card-image {
     display: block;
