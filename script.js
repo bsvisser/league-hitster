@@ -191,6 +191,11 @@ function setupDropZones() {
                 score += 10; // Increment score for correct placement
                 document.getElementById('score').textContent = `Score: ${score}`;
                 
+                // Turn the draggable card green to indicate correct placement
+                const draggableCard = document.getElementById("draggable-champion");
+                draggableCard.style.backgroundColor = 'green';
+                draggableCard.style.boxShadow = '0 0 15px rgba(0, 255, 0, 0.5)';
+                
                 addChampionToTimeline(draggedData, index);
                 renderTimeline();
                 nextRound();
@@ -198,6 +203,11 @@ function setupDropZones() {
                 lives--;
                 document.getElementById("lives").textContent = `Lives: ${lives}`;
 
+                // Turn the draggable card red to indicate incorrect placement
+                const draggableCard = document.getElementById("draggable-champion");
+                draggableCard.style.backgroundColor = 'red';
+                draggableCard.style.boxShadow = '0 0 15px rgba(255, 0, 0, 0.5)';
+                
                 if (lives <= 0) {
                     gameOver();
                 } else {
@@ -207,7 +217,6 @@ function setupDropZones() {
         });
     });
 }
-
 function checkPlacement(draggedChampion, index) {
     const draggedDate = new Date(draggedChampion.releaseDate);
 
