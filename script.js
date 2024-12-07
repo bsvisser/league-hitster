@@ -187,42 +187,42 @@ function setupDropZones() {
 
             const correctPlacement = checkPlacement(draggedData, index);
 
-            // Get the drop zone and dragged card
-            const dropZone = event.target;
-            const draggableCard = document.getElementById("draggable-champion");
-
             if (correctPlacement) {
-                dropZone.style.backgroundColor = 'green';  // Correct placement: Green color
-                draggableCard.style.border = '5px solid green'; // Highlight the dragged card in green
-
+                // Correct placement
                 score += 10; // Increment score for correct placement
                 document.getElementById('score').textContent = `Score: ${score}`;
-                
+
                 addChampionToTimeline(draggedData, index);
                 renderTimeline();
                 nextRound();
-            } else {
-                dropZone.style.backgroundColor = 'red';  // Incorrect placement: Red color
-                draggableCard.style.border = '5px solid red'; // Highlight the dragged card in red
 
+                // Add the "correct" class to indicate success
+                const draggableCard = document.getElementById("draggable-champion");
+                draggableCard.classList.add("correct");
+
+                // Remove the class after the animation (0.5s)
+                setTimeout(() => {
+                    draggableCard.classList.remove("correct");
+                }, 500);
+            } else {
+                // Incorrect placement
                 lives--;
                 document.getElementById("lives").textContent = `Lives: ${lives}`;
 
                 if (lives <= 0) {
                     gameOver();
                 } else {
-                    setTimeout(() => {
-                        // Reset the color after a short delay (return to purple)
-                        dropZone.style.backgroundColor = '';
-                        draggableCard.style.border = '';
-
-                        // You can add the purple color back if you want the "active" state
-                        dropZone.style.backgroundColor = 'purple';
-                        draggableCard.style.border = '5px solid purple';
-
-                        nextRound(); // Give a new champion to place after losing a life
-                    }, 1000); // 1 second delay before resetting the color
+                    nextRound(); // Give a new champion to place after losing a life
                 }
+
+                // Add the "incorrect" class to indicate failure
+                const draggableCard = document.getElementById("draggable-champion");
+                draggableCard.classList.add("incorrect");
+
+                // Remove the class after the animation (0.5s)
+                setTimeout(() => {
+                    draggableCard.classList.remove("incorrect");
+                }, 500);
             }
         });
     });
