@@ -187,16 +187,30 @@ function setupDropZones() {
 
             const correctPlacement = checkPlacement(draggedData, index);
 
+            const activeCard = document.getElementById("draggable-champion");
+
             if (correctPlacement) {
+                // Correct placement - turn the card green
+                activeCard.classList.add("correct");
+                setTimeout(() => {
+                    activeCard.classList.remove("correct");
+                }, 500); // After 0.5 seconds, revert the color
+
                 score += 10; // Increment score for correct placement
-                document.getElementById('score').textContent = Score: ${score};
+                document.getElementById('score').textContent = `Score: ${score}`;
                 
                 addChampionToTimeline(draggedData, index);
                 renderTimeline();
                 nextRound();
             } else {
+                // Incorrect placement - turn the card red
+                activeCard.classList.add("incorrect");
+                setTimeout(() => {
+                    activeCard.classList.remove("incorrect");
+                }, 500); // After 0.5 seconds, revert the color
+
                 lives--;
-                document.getElementById("lives").textContent = Lives: ${lives};
+                document.getElementById("lives").textContent = `Lives: ${lives}`;
 
                 if (lives <= 0) {
                     gameOver();
