@@ -185,25 +185,21 @@ function setupDropZones() {
 
             const correctPlacement = checkPlacement(draggedData, index);
 
-            // Handle the draggable champion element
+            // Select the draggable champion div
             const draggableChampionDiv = document.getElementById("draggable-champion");
 
-            // Select the card that's being dragged to the zone (the card that receives correct/incorrect feedback)
-            const draggedCard = zone.previousElementSibling; // The card next to the drop zone
-            draggedCard.classList.remove("correct", "incorrect"); // Clear any previous states
-
+            // Add correct or incorrect class based on placement
             if (correctPlacement) {
-                draggedCard.classList.add("correct");
                 draggableChampionDiv.classList.add("correct");
                 draggableChampionDiv.classList.remove("incorrect");
+
                 score += 10; // Increment score for correct placement
                 document.getElementById('score').textContent = `Score: ${score}`;
-                
+
                 addChampionToTimeline(draggedData, index);
                 renderTimeline();
                 nextRound();
             } else {
-                draggedCard.classList.add("incorrect");
                 draggableChampionDiv.classList.add("incorrect");
                 draggableChampionDiv.classList.remove("correct");
 
