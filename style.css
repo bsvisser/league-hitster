@@ -30,16 +30,8 @@ body {
     text-align: center;
     width: 100px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-    position: relative;
     transition: transform 0.3s;
-    cursor: pointer; /* Ensure cards are tappable on mobile */
-}
-
-/* For smaller screens */
-@media (max-width: 600px) {
-    .card {
-        width: 80px; /* Adjust card width */
-    }
+    position: relative;
 }
 
 .card-image {

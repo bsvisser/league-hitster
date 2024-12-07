@@ -71,6 +71,7 @@ function nextRound() {
     // Preload the next champion image and call the callback when ready
     preloadImage(currentChampion.image.replace("42px", "86px"), (preloadedImg) => {
         const draggableChampionDiv = document.getElementById("draggable-champion");
+        setupDragEvents(currentChampion);
 
         // Create a new card if none exists
         if (!draggableChampionDiv) {
@@ -95,7 +96,6 @@ function nextRound() {
         // Add the 'active' class to highlight the card (purple color)
         activeCard.classList.add("active");
 
-        setupDragEvents(currentChampion);
     });
 }
 
@@ -139,29 +139,13 @@ function renderTimeline() {
 
     setupDropZones();
 }
+
 function setupDragEvents(currentChampion) {
     const draggable = document.getElementById("draggable-champion");
 
-    // Mouse events
     draggable.addEventListener("dragstart", (event) => {
-        draggable.style.visibility = 'hidden'; // Hide the card during drag
         event.dataTransfer.setData("text/plain", JSON.stringify(currentChampion));
-    });
-
-    draggable.addEventListener("dragend", () => {
-        draggable.style.visibility = 'visible'; // Show the card again after drag ends
-    });
-
-    // Touch events (for mobile devices)
-    draggable.addEventListener("touchstart", (event) => {
-        draggable.style.visibility = 'hidden'; // Hide the card during touch
-        const touch = event.changedTouches[0]; // Get the first touch point
-        const dragData = JSON.stringify(currentChampion);
-        event.dataTransfer.setData("text/plain", dragData); // Store the data for drop
-    });
-
-    draggable.addEventListener("touchend", () => {
-        draggable.style.visibility = 'visible'; // Show the card again after touch ends
+        draggable.classList.remove("active");
     });
 }
 
