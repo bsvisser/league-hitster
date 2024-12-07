@@ -165,6 +165,7 @@ function formatDate(dateString) {
     return ${day}${getOrdinalSuffix(day)} ${month} ${year};
 }
 
+
 function setupDropZones() {
   const dropZones = document.querySelectorAll(".drop-between");
 
@@ -187,6 +188,8 @@ function setupDropZones() {
 
       const correctPlacement = checkPlacement(draggedData, index);
 
+      const draggableCard = document.getElementById("draggable-champion");
+
       if (correctPlacement) {
         score += 10; // Increment score for correct placement
         document.getElementById('score').textContent = Score: ${score};
@@ -195,13 +198,10 @@ function setupDropZones() {
         renderTimeline();
         nextRound();
 
-        // Change color to green for success (0.5s transition)
-        const activeCard = document.getElementById("draggable-champion");
-        activeCard.style.transition = "background-color 0.5s";
-        activeCard.style.backgroundColor = "green";
+        // Change color to green for correct placement (0.5s transition)
+        draggableCard.classList.add("correct");
         setTimeout(() => {
-          activeCard.style.transition = "";
-          activeCard.style.backgroundColor = "#9b4dff"; // Reset to purple
+          draggableCard.classList.remove("correct");
         }, 500);
       } else {
         lives--;
@@ -212,13 +212,10 @@ function setupDropZones() {
         } else {
           nextRound(); // Give a new champion to place after losing a life
 
-          // Change color to red for failure (0.5s transition)
-          const activeCard = document.getElementById("draggable-champion");
-          activeCard.style.transition = "background-color 0.5s";
-          activeCard.style.backgroundColor = "red";
+          // Change color to red for wrong placement (0.5s transition)
+          draggableCard.classList.add("wrong");
           setTimeout(() => {
-            activeCard.style.transition = "";
-            activeCard.style.backgroundColor = "#9b4dff"; // Reset to purple
+            draggableCard.classList.remove("wrong");
           }, 500);
         }
       }
