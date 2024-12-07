@@ -142,6 +142,9 @@ function renderTimeline() {
 function setupDragEvents(currentChampion) {
     const draggable = document.getElementById("draggable-champion");
 
+    let touchStartX, touchStartY;
+    let initialX, initialY;
+
     // For desktop drag-and-drop events (mouse)
     draggable.addEventListener("dragstart", (event) => {
         draggable.style.visibility = 'hidden'; // Hide the card during drag
@@ -153,40 +156,42 @@ function setupDragEvents(currentChampion) {
     });
 
     // For mobile touch events (no drag and drop)
-    let touchStartX, touchStartY, touchMoveX, touchMoveY;
-
     draggable.addEventListener("touchstart", (event) => {
         const touch = event.changedTouches[0]; // Get the first touch point
+
+        // Save initial touch position
         touchStartX = touch.pageX;
         touchStartY = touch.pageY;
+
+        // Save the initial position of the draggable card
+        const rect = draggable.getBoundingClientRect();
+        initialX = rect.left;
+        initialY = rect.top;
 
         // Make the card follow the touch movement
         draggable.style.position = 'absolute'; // Make the card absolute for movement
         draggable.style.zIndex = 10; // Bring the card to the front
-
-        // Start moving the card with touch
-        draggable.classList.add("dragging");
     });
 
     draggable.addEventListener("touchmove", (event) => {
+        event.preventDefault(); // Prevent default scroll behavior
+
         const touch = event.changedTouches[0]; // Get the first touch point
 
-        touchMoveX = touch.pageX - touchStartX;
-        touchMoveY = touch.pageY - touchStartY;
+        const deltaX = touch.pageX - touchStartX; // Calculate movement in X
+        const deltaY = touch.pageY - touchStartY; // Calculate movement in Y
 
-        // Move the card by updating its position
-        draggable.style.transform = `translate(${touchMoveX}px, ${touchMoveY}px)`;
+        // Move the card according to the touch movement
+        draggable.style.transform = `translate(${deltaX + initialX}px, ${deltaY + initialY}px)`;
     });
 
     draggable.addEventListener("touchend", (event) => {
         // End the drag when touch is released
-        draggable.classList.remove("dragging");
         draggable.style.position = ''; // Reset the position
         draggable.style.transform = ''; // Reset the transform
 
         // Logic to handle dropping the champion
-        // You can check the final position or use custom logic
-        const dropZone = detectDropZone(touchMoveX, touchMoveY); // Custom function to find drop zone
+        const dropZone = detectDropZone(); // Custom function to find drop zone
 
         if (dropZone) {
             // Handle the drop: Update the timeline, score, etc.
@@ -198,7 +203,7 @@ function setupDragEvents(currentChampion) {
     });
 
     // This function can check if the card is over a valid drop zone
-    function detectDropZone(x, y) {
+    function detectDropZone() {
         // You can implement your logic here to find the drop zone
         // For example, check if the card is within the area of the drop zones
         // Return the drop zone if valid, otherwise return null
