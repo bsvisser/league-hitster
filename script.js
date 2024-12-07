@@ -166,46 +166,64 @@ function formatDate(dateString) {
 }
 
 function setupDropZones() {
-    const dropZones = document.querySelectorAll(".drop-between");
+  const dropZones = document.querySelectorAll(".drop-between");
 
-    dropZones.forEach(zone => {
-        zone.addEventListener("dragover", (event) => {
-            event.preventDefault();
-            zone.classList.add("drag-over");
-        });
-
-        zone.addEventListener("dragleave", () => {
-            zone.classList.remove("drag-over");
-        });
-
-        zone.addEventListener("drop", (event) => {
-            event.preventDefault();
-            zone.classList.remove("drag-over");
-
-            const draggedData = JSON.parse(event.dataTransfer.getData("text/plain"));
-            const index = parseInt(zone.dataset.index, 10);
-
-            const correctPlacement = checkPlacement(draggedData, index);
-
-            if (correctPlacement) {
-                score += 10; // Increment score for correct placement
-                document.getElementById('score').textContent = Score: ${score};
-                
-                addChampionToTimeline(draggedData, index);
-                renderTimeline();
-                nextRound();
-            } else {
-                lives--;
-                document.getElementById("lives").textContent = Lives: ${lives};
-
-                if (lives <= 0) {
-                    gameOver();
-                } else {
-                    nextRound(); // Give a new champion to place after losing a life
-                }
-            }
-        });
+  dropZones.forEach(zone => {
+    zone.addEventListener("dragover", (event) => {
+      event.preventDefault();
+      zone.classList.add("drag-over");
     });
+
+    zone.addEventListener("dragleave", () => {
+      zone.classList.remove("drag-over");
+    });
+
+    zone.addEventListener("drop", (event) => {
+      event.preventDefault();
+      zone.classList.remove("drag-over");
+
+      const draggedData = JSON.parse(event.dataTransfer.getData("text/plain"));
+      const index = parseInt(zone.dataset.index, 10);
+
+      const correctPlacement = checkPlacement(draggedData, index);
+
+      if (correctPlacement) {
+        score += 10; // Increment score for correct placement
+        document.getElementById('score').textContent = Score: ${score};
+
+        addChampionToTimeline(draggedData, index);
+        renderTimeline();
+        nextRound();
+
+        // Change color to green for success (0.5s transition)
+        const activeCard = document.getElementById("draggable-champion");
+        activeCard.style.transition = "background-color 0.5s";
+        activeCard.style.backgroundColor = "green";
+        setTimeout(() => {
+          activeCard.style.transition = "";
+          activeCard.style.backgroundColor = "#9b4dff"; // Reset to purple
+        }, 500);
+      } else {
+        lives--;
+        document.getElementById("lives").textContent = Lives: ${lives};
+
+        if (lives <= 0) {
+          gameOver();
+        } else {
+          nextRound(); // Give a new champion to place after losing a life
+
+          // Change color to red for failure (0.5s transition)
+          const activeCard = document.getElementById("draggable-champion");
+          activeCard.style.transition = "background-color 0.5s";
+          activeCard.style.backgroundColor = "red";
+          setTimeout(() => {
+            activeCard.style.transition = "";
+            activeCard.style.backgroundColor = "#9b4dff"; // Reset to purple
+          }, 500);
+        }
+      }
+    });
+  });
 }
 
 function checkPlacement(draggedChampion, index) {
