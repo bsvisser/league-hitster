@@ -34,27 +34,12 @@ body {
     transition: transform 0.3s;
     cursor: pointer; /* Ensure cards are tappable on mobile */
 }
-/* Style for the card being dragged */
 .card.dragging {
     cursor: grabbing; /* Change cursor during dragging */
     transition: none; /* Disable transitions during dragging */
-    position: absolute; /* Make the card absolute for movement */
+    position: absolute; /* Make the card follow the touch movement */
     z-index: 10; /* Make sure the card stays on top */
-    pointer-events: none; /* Avoid other events while dragging */
 }
-
-/* Prevent the card from snapping back after a drop */
-.card {
-    transition: transform 0.3s ease-out;
-}
-
-/* Optional: Style for mobile view */
-@media (max-width: 600px) {
-    .card {
-        width: 80px; /* Adjust card width for mobile */
-    }
-}
-
 
 /* Additional touch-specific styles for mobile */
 @media (max-width: 600px) {
