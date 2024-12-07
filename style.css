@@ -14,12 +14,6 @@ body {
     text-align: center;
 }
 
-#score, #lives {
-    font-size: 18px;
-    color: #fff;
-    margin-bottom: 10px;
-}
-
 #timeline {
     display: flex;
     flex-wrap: wrap;
@@ -97,7 +91,7 @@ body {
 }
 
 .card.active {
-    background-color: #9b4dff; /* Purple color */
+    background-color: #9b4dff;
     box-shadow: 0 0 15px rgba(155, 77, 255, 0.5);
     animation: pulse 1.5s infinite;
 }
@@ -105,93 +99,18 @@ body {
 #draggable-champion {
     cursor: grab;
     display: inline-block;
-    background-color: #9b4dff; /* Purple color */
+    background-color: #9b4dff;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(155, 77, 255, 0.5);
     animation: pulse 1.5s infinite;
-    transition: background-color 0.3s, box-shadow 0.3s; /* Added transition */
+    transition: background-color 0.3s, box-shadow 0.3s;
     margin-top: 10px;
     text-align: center;
 }
 
-#draggable-champion img {
-    max-width: 100px;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-}
-
-#draggable-champion p {
-    font-size: 14px;
-    margin-top: 5px;
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-.drop-between.drag-over::before {
-    background-color: rgba(155, 77, 255, 0.7);
-}
-
-.card p {
-    font-size: 15px;
-    margin: 5px 0;
-}
-
-.card .release-date {
-    font-size: 12px;
-    color: #aaa;
-}
-
-.card.placed {
-    background-color: #6c6c6c;
-}
-
-.card.active {
-    background-color: #9b4dff;
-    box-shadow: 0 0 15px rgba(155, 77, 255, 0.5);
-    animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-#draggable-champion {
-    cursor: grab;
-}
-
-#draggable-champion:active {
-    cursor: grabbing;
-}
-
-/* Improved responsive design */
-@media (max-width: 600px) {
-    .card, .drop-between::before {
-        width: 80px;
-    }
-    
-    .card-image {
-        max-width: 80px;
-    }
+#draggable-champion.dragging {
+    opacity: 0.5;
 }
 
 .card.correct {
@@ -206,21 +125,20 @@ body {
     transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-.card.correct,
-.card.incorrect {
-    animation: none; /* Remove pulse animation for the correct and incorrect cards */
+.card.reset {
+    background-color: #2a2a40; /* Return to the original color */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s;
 }
 
-/* Transition back to the original color */
-@keyframes resetColor {
+@keyframes pulse {
     0% {
-        background-color: inherit;
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
     }
     100% {
-        background-color: #2a2a40;
+        transform: scale(1);
     }
-}
-
-.card.reset {
-    animation: resetColor 0.5s forwards;
 }
