@@ -74,7 +74,7 @@ body {
     height: 15px;
     background-color: rgba(155, 77, 255, 0.3);
     border-radius: 5px;
-    z-index: 10;
+    z-index: 11;
     transition: background-color 0.3s;
     pointer-events: none;
 }
@@ -89,13 +89,11 @@ body {
     background-color: transparent;
     z-index: 9;
 }
-
 .card.active {
     background-color: #9b4dff; /* Purple color */
     box-shadow: 0 0 15px rgba(155, 77, 255, 0.5);
     animation: pulse 1.5s infinite;
 }
-
 #draggable-champion {
     cursor: grab;
     display: inline-block;
@@ -104,7 +102,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(155, 77, 255, 0.5);
     animation: pulse 1.5s infinite;
-    transition: background-color 0.3s, box-shadow 0.3s;
+    transition: background-color 0.3s, box-shadow 0.3s; /* Added transition */
     margin-top: 10px;
     text-align: center;
 }
@@ -133,6 +131,7 @@ body {
     }
 }
 
+
 .drop-between.drag-over::before {
     background-color: rgba(155, 77, 255, 0.7);
 }
@@ -151,6 +150,24 @@ body {
     background-color: #6c6c6c;
 }
 
+.card.active {
+    background-color: #9b4dff;
+    box-shadow: 0 0 15px rgba(155, 77, 255, 0.5);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
 #draggable-champion {
     cursor: grab;
 }
@@ -164,7 +181,7 @@ body {
     .card, .drop-between::before {
         width: 80px;
     }
-
+    
     .card-image {
         max-width: 80px;
     }
