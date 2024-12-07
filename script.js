@@ -146,7 +146,7 @@ function setupDragEvents(currentChampion) {
     draggable.addEventListener("dragstart", (event) => {
         // Prevent the default drag behavior to keep the element visible
         event.preventDefault();
-        
+
         // Create a clone of the card and make it follow the mouse
         const dragImage = draggable.cloneNode(true);  // Clone the element
         dragImage.style.position = 'absolute';  // Make it follow the cursor
@@ -154,7 +154,7 @@ function setupDragEvents(currentChampion) {
         dragImage.style.zIndex = 9999;  // Make sure it's on top of everything
         dragImage.style.left = `${event.pageX - dragImage.offsetWidth / 2}px`;  // Position it near the cursor
         dragImage.style.top = `${event.pageY - dragImage.offsetHeight / 2}px`;  // Position it near the cursor
-        
+
         document.body.appendChild(dragImage);  // Append the clone to the body
 
         // Update the image position to follow the cursor on mousemove
@@ -173,8 +173,8 @@ function setupDragEvents(currentChampion) {
         // Add listeners to move the image and stop dragging
         document.addEventListener("mousemove", moveHandler);
         document.addEventListener("mouseup", stopHandler);
-        
-        // Continue the drag with the original element (so it doesn't disappear)
+
+        // Store the champion data to be used during drop
         event.dataTransfer.setData("text/plain", JSON.stringify(currentChampion));
     });
 }
@@ -196,15 +196,18 @@ function setupDropZones() {
             event.preventDefault();
             zone.classList.remove("drag-over");
 
+            // Get the data of the dragged item (the champion object)
             const draggedData = JSON.parse(event.dataTransfer.getData("text/plain"));
             const index = parseInt(zone.dataset.index, 10);
 
+            // Check if the drop is correct
             const correctPlacement = checkPlacement(draggedData, index);
 
             if (correctPlacement) {
                 score += 10; // Increment score for correct placement
                 document.getElementById('score').textContent = `Score: ${score}`;
-                
+
+                // Add the champion to the timeline at the correct index
                 addChampionToTimeline(draggedData, index);
                 renderTimeline();
                 nextRound();
@@ -221,6 +224,7 @@ function setupDropZones() {
         });
     });
 }
+
 
 function checkPlacement(draggedChampion, index) {
     const draggedDate = new Date(draggedChampion.releaseDate);
