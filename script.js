@@ -164,7 +164,6 @@ function formatDate(dateString) {
 
     return ${day}${getOrdinalSuffix(day)} ${month} ${year};
 }
-
 function setupDropZones() {
     const dropZones = document.querySelectorAll(".drop-between");
 
@@ -190,25 +189,25 @@ function setupDropZones() {
             const activeCard = document.getElementById("draggable-champion");
 
             if (correctPlacement) {
-                // Correct placement - turn the card green
+                // Add green color (correct placement)
                 activeCard.classList.add("correct");
                 setTimeout(() => {
                     activeCard.classList.remove("correct");
-                }, 500); // After 0.5 seconds, revert the color
-
+                }, 500); // Reset color after 0.5s
+                
                 score += 10; // Increment score for correct placement
                 document.getElementById('score').textContent = `Score: ${score}`;
-                
+
                 addChampionToTimeline(draggedData, index);
                 renderTimeline();
                 nextRound();
             } else {
-                // Incorrect placement - turn the card red
+                // Add red color (incorrect placement)
                 activeCard.classList.add("incorrect");
                 setTimeout(() => {
                     activeCard.classList.remove("incorrect");
-                }, 500); // After 0.5 seconds, revert the color
-
+                }, 500); // Reset color after 0.5s
+                
                 lives--;
                 document.getElementById("lives").textContent = `Lives: ${lives}`;
 
