@@ -1,0 +1,188 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1e1e2e;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#game-container {
+    margin: 20px;
+    text-align: center;
+}
+
+#timeline {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px 0;
+    position: relative;
+}
+
+.card {
+    background: #2a2a40;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 5px;
+    text-align: center;
+    width: 100px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s;
+    position: relative;
+}
+
+.card-image {
+    display: block;
+    max-width: 100px;
+    height: auto;
+    margin: auto;
+}
+
+.card:hover {
+    transform: scale(1.1);
+}
+
+#actions button {
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #4caf50;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#actions button:hover {
+    background-color: #45a049;
+}
+
+.drop-between {
+    position: relative;
+    z-index: 10;
+}
+
+.drop-between::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 15px;
+    background-color: rgba(155, 77, 255, 0.3);
+    border-radius: 5px;
+    z-index: 11;
+    transition: background-color 0.3s;
+    pointer-events: none;
+}
+
+.drop-between::after {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: -25px;
+    right: -25px;
+    bottom: -15px;
+    background-color: transparent;
+    z-index: 9;
+}
+.card.active {
+    background-color: #9b4dff; /* Purple color */
+    box-shadow: 0 0 15px rgba(155, 77, 255, 0.5);
+    animation: pulse 1.5s infinite;
+}
+#draggable-champion {
+    cursor: grab;
+    display: inline-block;
+    background-color: #9b4dff; /* Purple color */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(155, 77, 255, 0.5);
+    animation: pulse 1.5s infinite;
+    transition: transform 0.3s;
+    margin-top: 10px; /* Optional spacing between the timeline */
+    text-align: center;
+}
+
+#draggable-champion img {
+    max-width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+#draggable-champion p {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+.drop-between.drag-over::before {
+    background-color: rgba(155, 77, 255, 0.7);
+}
+
+.card p {
+    font-size: 15px;
+    margin: 5px 0;
+}
+
+.card .release-date {
+    font-size: 12px;
+    color: #aaa;
+}
+
+.card.placed {
+    background-color: #6c6c6c;
+}
+
+.card.active {
+    background-color: #9b4dff;
+    box-shadow: 0 0 15px rgba(155, 77, 255, 0.5);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+#draggable-champion {
+    cursor: grab;
+}
+
+#draggable-champion:active {
+    cursor: grabbing;
+}
+
+/* Improved responsive design */
+@media (max-width: 600px) {
+    .card, .drop-between::before {
+        width: 80px;
+    }
+    
+    .card-image {
+        max-width: 80px;
+    }
+}
