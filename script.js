@@ -15,7 +15,7 @@ function initializeGame() {
     // Add lives display
     const livesDisplay = document.createElement('div');
     livesDisplay.id = 'lives';
-    livesDisplay.textContent = `Lives: ${lives}`;
+    livesDisplay.textContent = `Lives: ${lives}\n`;
     gameContainer.insertBefore(livesDisplay, scoreDisplay.nextSibling);
 }
 
@@ -96,10 +96,8 @@ function nextRound() {
 
         // Add the 'active' class to highlight the card (purple color)
         activeCard.classList.add("active");
-
     });
 }
-
 
 function preloadImage(imageUrl, callback) {
     const img = new Image();  // Create a new Image object
@@ -113,7 +111,6 @@ function preloadImage(imageUrl, callback) {
     // Append to the document to trigger loading
     document.body.appendChild(img);
 }
-
 
 function renderTimeline() {
     const timelineDiv = document.getElementById("timeline");
@@ -188,32 +185,34 @@ function setupDropZones() {
 
             const correctPlacement = checkPlacement(draggedData, index);
 
-            const activeCard = document.getElementById("draggable-champion");
+            const draggedCard = document.getElementById("draggable-champion");
 
             if (correctPlacement) {
                 score += 10; // Increment score for correct placement
                 document.getElementById('score').textContent = `Score: ${score}`;
-                
-                activeCard.classList.add("correct");
+
+                // Add the 'correct' class and reset after 0.5s
+                draggedCard.classList.add("correct");
                 setTimeout(() => {
-                    activeCard.classList.remove("correct");
+                    draggedCard.classList.remove("correct");
                     addChampionToTimeline(draggedData, index);
                     renderTimeline();
                     nextRound();
-                }, 500);
+                }, 500); // Wait 0.5s before resetting
             } else {
                 lives--;
                 document.getElementById("lives").textContent = `Lives: ${lives}`;
 
-                activeCard.classList.add("incorrect");
+                // Add the 'incorrect' class and reset after 0.5s
+                draggedCard.classList.add("incorrect");
                 setTimeout(() => {
-                    activeCard.classList.remove("incorrect");
+                    draggedCard.classList.remove("incorrect");
                     if (lives <= 0) {
                         gameOver();
                     } else {
                         nextRound(); // Give a new champion to place after losing a life
                     }
-                }, 500);
+                }, 500); // Wait 0.5s before resetting
             }
         });
     });
