@@ -190,18 +190,16 @@ function setupDropZones() {
 
             // Add correct or incorrect class based on placement
             if (correctPlacement) {
-                // Correct placement
                 draggableChampionDiv.classList.add("correct");
                 draggableChampionDiv.classList.remove("incorrect");
 
                 score += 10; // Increment score for correct placement
                 document.getElementById('score').textContent = `Score: ${score}`;
-                
+
                 addChampionToTimeline(draggedData, index);
                 renderTimeline();
                 nextRound();
             } else {
-                // Incorrect placement
                 draggableChampionDiv.classList.add("incorrect");
                 draggableChampionDiv.classList.remove("correct");
 
