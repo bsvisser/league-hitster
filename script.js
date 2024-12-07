@@ -185,21 +185,25 @@ function setupDropZones() {
 
             const correctPlacement = checkPlacement(draggedData, index);
 
-            // Select the draggable champion div
+            // Handle the draggable champion element
             const draggableChampionDiv = document.getElementById("draggable-champion");
 
-            // Add correct or incorrect class based on placement
+            // Select the card that's being dragged to the zone (the card that receives correct/incorrect feedback)
+            const draggedCard = zone.previousElementSibling; // The card next to the drop zone
+            draggedCard.classList.remove("correct", "incorrect"); // Clear any previous states
+
             if (correctPlacement) {
+                draggedCard.classList.add("correct");
                 draggableChampionDiv.classList.add("correct");
                 draggableChampionDiv.classList.remove("incorrect");
-
                 score += 10; // Increment score for correct placement
                 document.getElementById('score').textContent = `Score: ${score}`;
-
+                
                 addChampionToTimeline(draggedData, index);
                 renderTimeline();
                 nextRound();
             } else {
+                draggedCard.classList.add("incorrect");
                 draggableChampionDiv.classList.add("incorrect");
                 draggableChampionDiv.classList.remove("correct");
 
@@ -212,6 +216,18 @@ function setupDropZones() {
                     nextRound(); // Give a new champion to place after losing a life
                 }
             }
+
+            // Reset after a delay (this can be adjusted)
+            setTimeout(() => {
+                draggedCard.classList.add("reset");
+                draggableChampionDiv.classList.add("reset");
+
+                // Optionally remove reset class after the animation ends
+                setTimeout(() => {
+                    draggedCard.classList.remove("reset");
+                    draggableChampionDiv.classList.remove("reset");
+                }, 500); // Match the reset animation duration
+            }, 1500); // Wait for the feedback color change to stay for 1.5s before resetting
         });
     });
 }
