@@ -9,13 +9,13 @@ function initializeGame() {
     const gameContainer = document.getElementById("game-container");
     const scoreDisplay = document.createElement('div');
     scoreDisplay.id = 'score';
-    scoreDisplay.textContent = `Score: ${score}`;
+    scoreDisplay.textContent = Score: ${score};
     gameContainer.insertBefore(scoreDisplay, gameContainer.firstChild);
 
     // Add lives display
     const livesDisplay = document.createElement('div');
     livesDisplay.id = 'lives';
-    livesDisplay.textContent = `Lives: ${lives}\n`;
+    livesDisplay.textContent = Lives: ${lives}\n;
     gameContainer.insertBefore(livesDisplay, scoreDisplay.nextSibling);
 }
 
@@ -46,8 +46,8 @@ function startGame() {
     timeline = [];
     lives = 3;
     score = 0;
-    document.getElementById('lives').textContent = `Lives: ${lives}`;
-    document.getElementById('score').textContent = `Score: ${score}`;
+    document.getElementById('lives').textContent = Lives: ${lives};
+    document.getElementById('score').textContent = Score: ${score};
 
     // Add first champion to timeline
     const firstChampion = champions.pop();
@@ -55,7 +55,6 @@ function startGame() {
     renderTimeline();
     nextRound();
 }
-
 function nextRound() {
     if (lives <= 0) {
         gameOver();
@@ -85,10 +84,10 @@ function nextRound() {
         const activeCard = document.getElementById("draggable-champion");
 
         // Use the preloaded image instead of loading it again
-        activeCard.innerHTML = `
+        activeCard.innerHTML = 
             <img src="${preloadedImg.src}" alt="${currentChampion.name}" class="card-image">
             <p>${currentChampion.name}</p>
-        `;
+        ;
 
         // Set data attributes
         activeCard.dataset.releaseDate = currentChampion.releaseDate;
@@ -96,8 +95,10 @@ function nextRound() {
 
         // Add the 'active' class to highlight the card (purple color)
         activeCard.classList.add("active");
+
     });
 }
+
 
 function preloadImage(imageUrl, callback) {
     const img = new Image();  // Create a new Image object
@@ -112,18 +113,19 @@ function preloadImage(imageUrl, callback) {
     document.body.appendChild(img);
 }
 
+
 function renderTimeline() {
     const timelineDiv = document.getElementById("timeline");
     timelineDiv.innerHTML = timeline
         .map((champ, index) => {
             const isPlaced = index < timeline.length;
-            return `
+            return 
                 <div class="card droppable ${isPlaced ? 'placed' : ''}" data-release-date="${champ.releaseDate}" data-index="${index}">
                     <img src="${champ.image}" alt="${champ.name}" class="card-image">
                     <p>${champ.name}</p>
                     <p class="release-date">${formatDate(champ.releaseDate)}</p>
                 </div>
-            `;
+            ;
         })
         .join('');
     
@@ -160,7 +162,7 @@ function formatDate(dateString) {
         return suffixes[(remainder - 20) % 10] || suffixes[remainder] || suffixes[0];
     };
 
-    return `${day}${getOrdinalSuffix(day)} ${month} ${year}`;
+    return ${day}${getOrdinalSuffix(day)} ${month} ${year};
 }
 
 function setupDropZones() {
@@ -185,34 +187,22 @@ function setupDropZones() {
 
             const correctPlacement = checkPlacement(draggedData, index);
 
-            const draggedCard = document.getElementById("draggable-champion");
-
             if (correctPlacement) {
                 score += 10; // Increment score for correct placement
-                document.getElementById('score').textContent = `Score: ${score}`;
-
-                // Add the 'correct' class and reset after 0.5s
-                draggedCard.classList.add("correct");
-                setTimeout(() => {
-                    draggedCard.classList.remove("correct");
-                    addChampionToTimeline(draggedData, index);
-                    renderTimeline();
-                    nextRound();
-                }, 500); // Wait 0.5s before resetting
+                document.getElementById('score').textContent = Score: ${score};
+                
+                addChampionToTimeline(draggedData, index);
+                renderTimeline();
+                nextRound();
             } else {
                 lives--;
-                document.getElementById("lives").textContent = `Lives: ${lives}`;
+                document.getElementById("lives").textContent = Lives: ${lives};
 
-                // Add the 'incorrect' class and reset after 0.5s
-                draggedCard.classList.add("incorrect");
-                setTimeout(() => {
-                    draggedCard.classList.remove("incorrect");
-                    if (lives <= 0) {
-                        gameOver();
-                    } else {
-                        nextRound(); // Give a new champion to place after losing a life
-                    }
-                }, 500); // Wait 0.5s before resetting
+                if (lives <= 0) {
+                    gameOver();
+                } else {
+                    nextRound(); // Give a new champion to place after losing a life
+                }
             }
         });
     });
@@ -241,13 +231,13 @@ function addChampionToTimeline(champion, index) {
 
 function gameOver() {
     const finalScore = score;
-    alert(`Game Over! Your final score is ${finalScore}`);
+    alert(Game Over! Your final score is ${finalScore});
     
     // Optional: Implement high score tracking
     const highScore = localStorage.getItem('leagueHitsterHighScore') || 0;
     if (finalScore > highScore) {
         localStorage.setItem('leagueHitsterHighScore', finalScore);
-        alert(`New High Score: ${finalScore}!`);
+        alert(New High Score: ${finalScore}!);
     }
     
     // Restart the game
@@ -257,13 +247,13 @@ function gameOver() {
 
 function winGame() {
     const finalScore = score;
-    alert(`Congratulations! You placed all champions correctly. Your final score is ${finalScore}`);
+    alert(Congratulations! You placed all champions correctly. Your final score is ${finalScore});
     
     // Optional: Implement high score tracking
     const highScore = localStorage.getItem('leagueHitsterHighScore') || 0;
     if (finalScore > highScore) {
         localStorage.setItem('leagueHitsterHighScore', finalScore);
-        alert(`New High Score: ${finalScore}!`);
+        alert(New High Score: ${finalScore}!);
     }
     
     // Restart the game
