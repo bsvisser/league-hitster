@@ -60,8 +60,16 @@ body {
 }
 
 .drop-between {
-    position: relative;
-    z-index: 10;
+    height: 10px;
+    margin: 5px 0;
+}
+
+.drop-between.drag-over {
+    background-color: rgba(0, 0, 0, 0.1); /* Light gray when dragging over */
+}
+
+.card {
+    transition: border-color 0.3s ease;
 }
 
 .drop-between::before {
