@@ -204,12 +204,9 @@ function setupDropZones() {
             if (correctPlacement) {
                 score += 10; // Increment score for correct placement
                 document.getElementById('score').textContent = `Score: ${score}`;
-
+                
                 addChampionToTimeline(draggedData, index);
                 renderTimeline();
-
-                // Apply visual feedback for correct placement
-                showCorrectFeedback(zone);
                 nextRound();
             } else {
                 lives--;
@@ -220,44 +217,9 @@ function setupDropZones() {
                 } else {
                     nextRound(); // Give a new champion to place after losing a life
                 }
-
-                // Apply visual feedback for incorrect placement
-                showIncorrectFeedback(zone);
             }
         });
     });
-}
-
-// Show visual feedback for correct placement
-function showCorrectFeedback(zone) {
-    zone.style.backgroundColor = "#4CAF50"; // Green background
-    zone.style.borderColor = "#388E3C"; // Darker green border
-    zone.classList.add("correct-feedback");
-
-    // Reset the color after a short time
-    setTimeout(() => {
-        zone.style.backgroundColor = "";  // Reset background color
-        zone.style.borderColor = "";  // Reset border color
-        zone.classList.remove("correct-feedback");
-    }, 1000); // Feedback stays for 1 second
-}
-
-// Show visual feedback for incorrect placement
-function showIncorrectFeedback(zone) {
-    zone.style.backgroundColor = "#F44336"; // Red background
-    zone.style.borderColor = "#D32F2F"; // Darker red border
-    zone.classList.add("incorrect-feedback");
-
-    // Shake effect to indicate error
-    zone.classList.add("shake");
-
-    // Reset the color and shake effect after a short time
-    setTimeout(() => {
-        zone.style.backgroundColor = "";  // Reset background color
-        zone.style.borderColor = "";  // Reset border color
-        zone.classList.remove("incorrect-feedback");
-        zone.classList.remove("shake");
-    }, 1000); // Feedback stays for 1 second
 }
 
 function checkPlacement(draggedChampion, index) {
