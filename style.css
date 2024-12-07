@@ -44,6 +44,41 @@ body {
 .card:hover {
     transform: scale(1.1);
 }
+/* Red for incorrect placement */
+.card.correct {
+    background-color: #4caf50; /* Green for correct */
+    animation: pulseGreen 0.5s ease-out forwards;
+}
+
+/* Red for incorrect placement */
+.card.incorrect {
+    background-color: #f44336; /* Red for incorrect */
+    animation: pulseRed 0.5s ease-out forwards;
+}
+
+@keyframes pulseGreen {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes pulseRed {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
 
 #actions button {
     margin: 10px;
