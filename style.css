@@ -44,41 +44,6 @@ body {
 .card:hover {
     transform: scale(1.1);
 }
-/* Red for incorrect placement */
-.card.correct {
-    background-color: #4caf50; /* Green for correct */
-    animation: pulseGreen 0.5s ease-out forwards;
-}
-
-/* Red for incorrect placement */
-.card.incorrect {
-    background-color: #f44336; /* Red for incorrect */
-    animation: pulseRed 0.5s ease-out forwards;
-}
-
-@keyframes pulseGreen {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-@keyframes pulseRed {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
 
 #actions button {
     margin: 10px;
@@ -95,16 +60,8 @@ body {
 }
 
 .drop-between {
-    height: 10px;
-    margin: 5px 0;
-}
-
-.drop-between.drag-over {
-    background-color: rgba(0, 0, 0, 0.1); /* Light gray when dragging over */
-}
-
-.card {
-    transition: border-color 0.3s ease;
+    position: relative;
+    z-index: 10;
 }
 
 .drop-between::before {
