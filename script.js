@@ -185,7 +185,15 @@ function setupDropZones() {
 
             const correctPlacement = checkPlacement(draggedData, index);
 
+            // Select the draggable champion div
+            const draggableChampionDiv = document.getElementById("draggable-champion");
+
+            // Add correct or incorrect class based on placement
             if (correctPlacement) {
+                // Correct placement
+                draggableChampionDiv.classList.add("correct");
+                draggableChampionDiv.classList.remove("incorrect");
+
                 score += 10; // Increment score for correct placement
                 document.getElementById('score').textContent = `Score: ${score}`;
                 
@@ -193,6 +201,10 @@ function setupDropZones() {
                 renderTimeline();
                 nextRound();
             } else {
+                // Incorrect placement
+                draggableChampionDiv.classList.add("incorrect");
+                draggableChampionDiv.classList.remove("correct");
+
                 lives--;
                 document.getElementById("lives").textContent = `Lives: ${lives}`;
 
