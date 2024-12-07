@@ -46,8 +46,8 @@ function startGame() {
     timeline = [];
     lives = 3;
     score = 0;
-    document.getElementById('lives').textContent = Lives: ${lives};
-    document.getElementById('score').textContent = Score: ${score};
+    document.getElementById('score').textContent = `Score: ${score}`;
+    document.getElementById('lives').textContent = `Lives: ${lives}`;
 
     // Add first champion to timeline
     const firstChampion = champions.pop();
