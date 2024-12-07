@@ -34,7 +34,19 @@ body {
     transition: transform 0.3s;
     cursor: pointer; /* Ensure cards are tappable on mobile */
 }
+.card.dragging {
+    cursor: grabbing; /* Change cursor during dragging */
+    transition: none; /* Disable transitions during dragging */
+    position: absolute; /* Make the card follow the touch movement */
+    z-index: 10; /* Make sure the card stays on top */
+}
 
+/* Additional touch-specific styles for mobile */
+@media (max-width: 600px) {
+    .card {
+        width: 80px; /* Adjust card width for mobile */
+    }
+}
 /* For smaller screens */
 @media (max-width: 600px) {
     .card {
