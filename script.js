@@ -216,18 +216,6 @@ function setupDropZones() {
                     nextRound(); // Give a new champion to place after losing a life
                 }
             }
-
-            // Reset after a delay (this can be adjusted)
-            setTimeout(() => {
-                draggedCard.classList.add("reset");
-                draggableChampionDiv.classList.add("reset");
-
-                // Optionally remove reset class after the animation ends
-                setTimeout(() => {
-                    draggedCard.classList.remove("reset");
-                    draggableChampionDiv.classList.remove("reset");
-                }, 500); // Match the reset animation duration
-            }, 1500); // Wait for the feedback color change to stay for 1.5s before resetting
         });
     });
 }
