@@ -139,13 +139,29 @@ function renderTimeline() {
 
     setupDropZones();
 }
-
 function setupDragEvents(currentChampion) {
     const draggable = document.getElementById("draggable-champion");
 
+    // Mouse events
     draggable.addEventListener("dragstart", (event) => {
+        draggable.style.visibility = 'hidden'; // Hide the card during drag
         event.dataTransfer.setData("text/plain", JSON.stringify(currentChampion));
-        draggable.classList.remove("active");
+    });
+
+    draggable.addEventListener("dragend", () => {
+        draggable.style.visibility = 'visible'; // Show the card again after drag ends
+    });
+
+    // Touch events (for mobile devices)
+    draggable.addEventListener("touchstart", (event) => {
+        draggable.style.visibility = 'hidden'; // Hide the card during touch
+        const touch = event.changedTouches[0]; // Get the first touch point
+        const dragData = JSON.stringify(currentChampion);
+        event.dataTransfer.setData("text/plain", dragData); // Store the data for drop
+    });
+
+    draggable.addEventListener("touchend", () => {
+        draggable.style.visibility = 'visible'; // Show the card again after touch ends
     });
 }
 
