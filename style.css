@@ -194,23 +194,30 @@ body {
     }
 }
 
+/* Correct placement styles */
 .card.correct {
     background-color: #4CAF50; /* Green for correct */
     box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
-    animation: none; /* Remove pulse animation */
     transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .card.incorrect {
     background-color: #F44336; /* Red for incorrect */
     box-shadow: 0 0 15px rgba(244, 67, 54, 0.5);
-    animation: none; /* Remove pulse animation */
     transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-.card.correct,
-.card.incorrect {
-    animation: none; /* Remove pulse animation for the correct and incorrect cards */
+/* To apply the color changes to the draggable element */
+#draggable-champion.correct {
+    background-color: #4CAF50; /* Green for correct */
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+#draggable-champion.incorrect {
+    background-color: #F44336; /* Red for incorrect */
+    box-shadow: 0 0 15px rgba(244, 67, 54, 0.5);
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 /* Reset the color after a certain period */
