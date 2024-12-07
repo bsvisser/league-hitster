@@ -45,14 +45,20 @@ function setupDropZones() {
                     gameOver();
                 } else {
                     setTimeout(() => {
-                        // Reset the color after a short delay
-                        dropZone.style.backgroundColor = '';
-                        draggableCard.style.border = '';
+                        // Reset the color back to purple after 1 second
+                        dropZone.style.backgroundColor = ''; // Reset drop zone to default (purple)
+                        draggableCard.style.border = ''; // Reset card border to default (purple)
 
                         nextRound(); // Give a new champion to place after losing a life
-                    }, 500);
+                    }, 1000); // 1000 ms = 1 second
                 }
             }
+
+            // Reset colors back to purple after a delay
+            setTimeout(() => {
+                dropZone.style.backgroundColor = '';  // Reset drop zone to purple
+                draggableCard.style.border = '';  // Reset card border to purple
+            }, 1000); // 1000 ms = 1 second delay
         });
     });
 }
